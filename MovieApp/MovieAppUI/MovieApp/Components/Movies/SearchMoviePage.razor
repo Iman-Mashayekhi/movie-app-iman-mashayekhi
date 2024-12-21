@@ -1,0 +1,125 @@
+﻿@page "/Movies/Search"
+@rendermode InteractiveServer
+@inject HttpClient Http
+
+<PageTitle>BookmarkPage</PageTitle>
+
+<div class="page-container-add">
+
+    <main class="main-content-add">
+        <h2 class="section-title">Add Movie</h2>
+        <div class="search-bar-add">
+            <button class="search-button-add" @onclick="CancelSearch" style="color: gray"><i class="fas fa-search"></i>X</button>
+            <input type="text" placeholder="Search Movie Name" @bind-value="searchValue">
+            <button class="search-button-add" @onclick="OnSearch"><i class="fas fa-search"></i><img src="/Footer/search.png"/></button>
+        </div>
+
+            @if (IsSearchedSuccess)
+            {
+            <br />
+            <h4><strong>Result</strong></h4>
+            foreach (var searchedMovie in SearchedMovie)
+            {
+                <div class="conimg">
+                    <div class="conimg-item">
+                        <a href="/Movies/Details/@searchedMovie.Id">
+                            <img src="/Pictures/@searchedMovie.Picture" alt="@searchedMovie.Name">
+                        </a>
+                        <div class="conimg-info">
+                            <h3>@searchedMovie.Name</h3>
+                            <h4>@searchedMovie.Imdb / 10</h4>     
+                        </div>
+                    </div>
+                </div>
+                if (SearchedMovie.Count > 1)
+                {
+                    <br />
+                    <hr />
+                }
+            }
+            }
+        else
+            {
+                <br />
+                <h2>"@searchValue not found! :("</h2>
+            }
+
+            <br>
+            <br>
+            <hr style="border : 0"/>
+            <footer class="footer">
+                <a href="/">
+                    <div class="fbutton">
+                        <img class="icon" src="/Footer/home.png" />
+                    </div>
+                </a>
+
+                <a href="/movies/bookmark">
+                <div class="fbutton">
+                    <img class="icon" src="/Footer/bookmark.png" />
+                </div>
+            </a>
+
+                <a href="/Movies/search">
+                    <div class="fbutton active">
+                        <img class="icon" src="/Footer/search.png" />
+                        <span class="label">Search</span>
+                    </div>
+                </a>
+                <a href="/user">
+                    <div class="fbutton">
+                        <img class="icon" src="/Footer/user.png" />
+                    </div>
+                </a>
+            </footer>
+            </main>
+            </div>
+@code {
+    private bool IsSearchedSuccess = true;
+    private string searchValue { get; set; } = string.Empty;
+    private List<Movie> SearchedMovie { get; set; } = new();
+    private List<Movie> Movies { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetAsync("http://localhost:8080/movies");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            Movies = System.Text.Json.JsonSerializer.Deserialize<List<Movie>>(jsonResponse,
+                new System.Text.Json.JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    })!;
+
+        }
+    }
+
+    private void OnSearch()
+    {
+        SearchedMovie.Clear();
+        if (Movies.Count > 0)
+        {
+            foreach (var movie in Movies)
+            {
+                if (movie.Name.ToLower().Contains(searchValue.ToLower()))
+                {
+                    SearchedMovie.Add(movie);
+                }
+            }
+            if (SearchedMovie.Count == 0)
+            {
+                IsSearchedSuccess = false;
+            }
+            StateHasChanged();
+        }
+    }
+
+    private void CancelSearch()
+    {
+        searchValue = string.Empty;
+        IsSearchedSuccess = true;
+        StateHasChanged();
+    }
+    }

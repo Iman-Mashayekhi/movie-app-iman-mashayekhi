@@ -1,0 +1,245 @@
+{
+  "Files": [
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\MovieApp.bundle.scp.css",
+      "PackagePath": "staticwebassets\\MovieApp.bundle.scp.css"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Baner\\Caddo.png",
+      "PackagePath": "staticwebassets\\Baner\\Caddo.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Baner\\Joker.png",
+      "PackagePath": "staticwebassets\\Baner\\Joker.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Baner\\Venom.png",
+      "PackagePath": "staticwebassets\\Baner\\Venom.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Baner\\penguin.png",
+      "PackagePath": "staticwebassets\\Baner\\penguin.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Fonts\\IRANSans.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\IRANSans.ttf"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Fonts\\IRANSans_Bold.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\IRANSans_Bold.ttf"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Fonts\\IRANSans_Light.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\IRANSans_Light.ttf"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Fonts\\IRANSans_Medium.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\IRANSans_Medium.ttf"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Fonts\\IRANSans_UltraLight.ttf",
+      "PackagePath": "staticwebassets\\Fonts\\IRANSans_UltraLight.ttf"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\add_circle.png",
+      "PackagePath": "staticwebassets\\Footer\\add_circle.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\bookmark.png",
+      "PackagePath": "staticwebassets\\Footer\\bookmark.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\home.png",
+      "PackagePath": "staticwebassets\\Footer\\home.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\keyboard_arrow_left.png",
+      "PackagePath": "staticwebassets\\Footer\\keyboard_arrow_left.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\more-vert.png",
+      "PackagePath": "staticwebassets\\Footer\\more-vert.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\search.png",
+      "PackagePath": "staticwebassets\\Footer\\search.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Footer\\user.png",
+      "PackagePath": "staticwebassets\\Footer\\user.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\CaddoLake.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\CaddoLake.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\altpic.png",
+      "PackagePath": "staticwebassets\\Pictures\\altpic.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\arrival.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\arrival.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\batman.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\batman.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\beekeeper.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\beekeeper.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\bettercallsaul.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\bettercallsaul.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\bladerunner.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\bladerunner.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\breakingbad.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\breakingbad.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\dark.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\dark.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\darkknight.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\darkknight.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\dune2.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\dune2.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\fightclub.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\fightclub.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\forrestgump.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\forrestgump.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\godfather.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\godfather.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\imdb.png",
+      "PackagePath": "staticwebassets\\Pictures\\imdb.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\inception.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\inception.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\interstellar.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\interstellar.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\interstellar2.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\interstellar2.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\johnwick4.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\johnwick4.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\joker.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\joker.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\joker2.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\joker2.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\leon.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\leon.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\openhimer.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\openhimer.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\penguin.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\penguin.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\prestige.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\prestige.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\pulpfiction.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\pulpfiction.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\se7en.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\se7en.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\shawshangredemption.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\shawshangredemption.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\tenet.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\tenet.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\topgun.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\topgun.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\venom.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\venom.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\walle.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\walle.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\westworld.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\westworld.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\Pictures\\wildrobot.jpg",
+      "PackagePath": "staticwebassets\\Pictures\\wildrobot.jpg"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "F:\\Source\\dotnet-projects\\MovieApp\\MovieApp\\wwwroot\\guest.png",
+      "PackagePath": "staticwebassets\\guest.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MovieApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MovieApp.props",
+      "PackagePath": "build\\MovieApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MovieApp.props",
+      "PackagePath": "buildMultiTargeting\\MovieApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MovieApp.props",
+      "PackagePath": "buildTransitive\\MovieApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

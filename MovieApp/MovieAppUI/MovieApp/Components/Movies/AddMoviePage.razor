@@ -1,0 +1,139 @@
+﻿@page "/Movies/Add"
+@inject HttpClient Http
+@inject NavigationManager _navigationManager
+@inject IWebHostEnvironment environment
+
+@rendermode InteractiveServer
+
+<PageTitle>Add Product</PageTitle>
+<div class="Add-Container-page">
+
+
+    <EditForm class="add-containre-form" style="padding-top: 20px" Enhance="true" Model="MovieForAdd" FormName="AddProduct" OnValidSubmit="AddProduct">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+
+        <br />
+        <div class="mb-4">
+            <InputText class="form-control Add-Container-input" @bind-Value="MovieForAdd.Name" placeholder="Name"/>
+        </div>
+        <div class="mb-4">
+            <InputText class="form-control Add-Container-input" @bind-Value="MovieForAdd.Director" placeholder="Director" />
+        </div>
+        <div class="mb-4" style="display:flex; align-content:center">
+            <InputText class="form-control" @bind-Value="MovieForAdd.Imdb" style="width: 45%; display:flex; margin-right:30px" placeholder="Imdb" />
+            
+            <InputText class="form-control Add-Container-input" @bind-Value="MovieForAdd.watchTime" style="width:45%; display:flex margin-left:30px;" placeholder="Watch time" />
+        </div>
+        <div class="mb-4">
+            <InputSelect class="form-select" @bind-Value="MovieForAdd.Genre" style="background: #1f1f1f;  color: #fff; border: 1px solid #444; border-radius:15px;">
+                <option value="0">Genre >...</option>
+                @foreach (var item in Enum.GetValues(typeof(Genres)))
+                {
+                    <option value="@item">@item.ToString()</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="mb-4">
+            <InputFile type="file" class="form-control Add-Container-input" OnChange="HandleFileSelected" placeholder="Picture" />
+        </div>
+        <div class="mb-4">
+            <InputTextArea class="form-control" @bind-Value="MovieForAdd.Description" placeholder="Description" />
+        </div>
+
+
+        <div class="toggle-buttons">
+            <button class="toggle active">Add</button>
+            <a class="toggle" href="/" style="color:inherit;text-decoration:none">Cancel</a>
+        </div>
+
+        </EditForm>
+
+        </div>
+
+
+
+    <footer class="footer">
+    <a href="/">
+        <div class="fbutton">
+          <img class="icon" src="/Footer/home.png" />
+        </div>
+    </a>
+    <a href="/Movies/bookmark">
+        <div class="fbutton">
+       <img class="icon" src="/Footer/bookmark.png" />
+        </div>
+    </a>
+
+    <a href="/Movies/Search">
+        <div class="fbutton">
+        <img class="icon" src="/Footer/search.png" />
+        </div>
+    </a>
+    <a href="/user">
+        <div class="fbutton">
+        <img class="icon" src="/Footer/user.png" />
+        </div>
+    </a>
+
+    </footer>
+
+@code {
+
+    [SupplyParameterFromForm]
+    private MovieDto MovieForAdd { get; set; } = new();
+
+    private string FilePath = string.Empty;
+    private string FinalimgNAme = string.Empty;
+    private IBrowserFile SelectedFile { get; set; }
+
+    private async Task AddProduct()
+    {
+        if (MovieForAdd.Name != null && !String.IsNullOrEmpty(MovieForAdd.Name))
+        {
+            if (FinalimgNAme.Contains(".") == false)
+            {
+                FinalimgNAme = "altpic.png";
+            }
+
+            Movie newMovie = new Movie()
+                {
+                    CreatedAt = DateTime.Now.ToString("yyyy-MM-dd:hh:mm:ss"),
+                    Name = MovieForAdd.Name,
+                    Description = MovieForAdd.Description,
+                    Genre = MovieForAdd.Genre,
+                    Picture = FinalimgNAme,
+                    Director = MovieForAdd.Director,
+                    Imdb = MovieForAdd.Imdb,
+                    watchTime = MovieForAdd.watchTime
+                };
+
+            var jsonContent = System.Text.Json.JsonSerializer.Serialize(newMovie);
+
+            var movie = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await Http.PostAsync("http://localhost:8080/insert", movie);
+
+            if (response.IsSuccessStatusCode)
+            {
+                _navigationManager.NavigateTo("/");
+            }
+        }
+
+    }
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        SelectedFile = e.File;
+
+        string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(SelectedFile.Name);
+        FilePath = Path.Combine(environment.WebRootPath, "Pictures", newFileName);
+
+        FinalimgNAme = newFileName;
+        using (var stream = System.IO.File.Create(FilePath))
+        {
+            await SelectedFile.OpenReadStream().CopyToAsync(stream);
+        }
+    }
+}
+

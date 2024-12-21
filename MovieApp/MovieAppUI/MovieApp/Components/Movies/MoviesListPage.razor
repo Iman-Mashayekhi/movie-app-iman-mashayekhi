@@ -1,0 +1,177 @@
+﻿@page "/"
+@inject HttpClient Http
+@inject Random rnd
+@using System.Text.Json;
+
+<PageTitle>Movies</PageTitle>
+
+<main>
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <img src="/baner/penguin.png" class="d-block w-100" alt="penguin" style="border-radius: 0 0 30px 30px; border-bottom: 1px solid gray;">
+                    <div class="carousel-caption">
+                    <a href="Movies/Details/29"><button class="btn btn-primary">Watch now</button></a>
+                    <p style="color: gray">Now Streaming!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                <img src="/Baner/Joker.png" class="d-block w-100" alt="joker" style="border-radius: 0 0 30px 30px; border-bottom: 1px solid gray;">
+                    <div class="carousel-caption">
+                    <a href="Movies/Details/26"><button class="btn btn-primary">Watch now</button></a>
+                    <p style="color: gray">Now Streaming!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+
+                <img src="/baner/Caddo.png" class="d-block w-100" alt="caddo lake" style="border-radius: 0 0 30px 30px; border-bottom: 1px solid gray;">
+                    <div class="carousel-caption">
+                    <a href="Movies/Details/44"><button class="btn btn-primary">Watch now</button></a>
+                    <p style="color: gray">Now Streaming!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-indicators" style="align-items:center; padding-top: 5px">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="border-radius:100%; width:10px; height: 10px;"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="border-radius:100%; width:10px; height: 10px; "></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" style="border-radius:100%; width:10px; height: 10px"></button>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+
+<div class="tabs">
+    <button class="tab active">All</button>
+    <button class="tab">Most viewed</button>
+    <button class="tab">Popular</button>
+    <button class="tab">Recently viewed</button>
+
+</div>
+
+    <article class="Arcontainer">
+@if (Movies is null)
+{
+    <div>
+        Loading...
+    </div>
+}
+else
+{
+    if (Movies.Count == 0)
+    {
+        <div>There is no data</div>
+    }
+    else
+    {
+        <h3 class="section-title">For You</h3>
+            <div class="carousel-card">
+                @foreach (var movie in Movies.OrderBy(x => rnd.Next()).Take(10).ToList())
+                {
+                    <div class="card" style="width: 18rem;" >
+                        <a href="/Movies/Details/@movie.Id"><img src="/Pictures/@movie.Picture" class="card-img"/></a>
+                    </div>
+                }
+            </div>
+
+
+        <h3 class="section-title">Hot</h3>
+        <div class="carousel-card">
+            @foreach (var movie in Movies.OrderBy(x => rnd.Next()).Take(10).ToList())
+            {
+                <div class="card" style="width: 18rem;">
+                    <a href="/Movies/Details/@movie.Id"><img src="/Pictures/@movie.Picture" class="card-img" /></a>
+                </div>
+            }
+        </div>
+
+
+                <h3 class="section-title">Action</h3>
+        <div class="carousel-card">
+            @foreach (var movie in ActionMovies)
+            {
+                <div class="card" style="width: 18rem;">
+                    <a href="/Movies/Details/@movie.Id"><img src="/Pictures/@movie.Picture" class="card-img" /></a>
+                </div>
+            }
+        </div>
+
+
+        <h3 class="section-title">All Movies</h3>
+        <div class="carousel-card">
+            @foreach (var movie in Movies)
+            {
+                
+                <div class="card" style="width: 18rem;">
+                    <a href="/Movies/Details/@movie.Id"><img src="/Pictures/@movie.Picture" class="card-img" /></a>
+                </div>
+            }
+        </div>
+    }
+}
+
+
+</article>
+
+
+    <footer class="footer">
+       <div class="fbutton active">
+            <img class="icon" src="/Footer/home.png" />
+            <span class="label">Home</span>
+            </div>
+        
+        <a href="/movies/bookmark"><div class="fbutton">
+            <img class="icon" src="/Footer/bookmark.png" />
+            </div>
+        </a>
+        <a href="/Movies/Search">
+            <div class="fbutton">
+            <img class="icon" src="/Footer/search.png" />
+            </div>
+        </a>
+        
+        <a href="/user">
+            <div class="fbutton">
+            <img class="icon" src="/Footer/user.png" />
+            </div>
+        </a>
+
+    </footer>
+
+</main>
+@code {
+    private List<Movie> Movies { get; set; } = new();
+    private List<Movie> ActionMovies { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetAsync("http://localhost:8080/movies");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            Movies =  System.Text.Json.JsonSerializer.Deserialize<List<Movie>>(jsonResponse,
+                new System.Text.Json.JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true 
+                    })!;
+
+            foreach (var mov in Movies)
+            {
+                if (mov.Genre == "Action")
+                {
+                    ActionMovies.Add(mov);
+                }
+            }
+
+        }
+    }
+}
