@@ -1,0 +1,172 @@
+﻿@page "/Movies/Bookmark"
+@rendermode InteractiveServer
+@inject HttpClient Http
+
+<PageTitle>BookmarkPage</PageTitle>
+
+<div class="page-container-add ">
+
+    <div>
+        <br />            
+        <img src="/Footer/keyboard_arrow_left.png" style="left: 20px; display: flex; position:absolute; height: 40px; width: 40px;" />
+        <img src="/Footer/more-vert.png" style="right: 20px; display: flex; position:absolute; height: 30px; width: 30px;" />
+
+        <div style="position: relative; display: flex; justify-content: center; " class="toggle-buttons">
+            <a href="/movies/add" style="color:inherit;text-decoration:none">
+            <button class="toggle active">Add</button>
+            <button class="toggle">Save</button>
+            </a>
+        </div>
+        </div>
+    <main class="main-content-add">
+        <h2 class="section-title">Add Movie</h2>
+        <div class="search-bar-add">
+            <button class="search-button-add" @onclick="CancelSearch" style="color: gray"><i class="fas fa-search"></i>X</button>
+            <input type="text" placeholder="Search Movie Name" @bind-value="searchValue">
+            <button class="search-button-add" @onclick="OnSearch"><i class="fas fa-search"></i><img src="/Footer/search.png"/></button>
+        </div>
+
+        @if (IsSearched)
+        {
+            if (IsSearchedSuccess)
+            {
+                <br />
+                <h5><strong>Result</strong></h5>
+                foreach (var searchedMovie in SearchedMovie)
+                {
+                    <div class="recently-added">
+                    <div class="movie-item-add">
+                    <a href="/Movies/Details/@searchedMovie.Id">
+                            <img src="/Pictures/@searchedMovie.Picture" alt="@searchedMovie.Name">
+                            </a>
+                        <div class="movie-info">
+                                <h3>@searchedMovie.Name</h3>
+                                <p>@searchedMovie.Imdb / 10</p>
+                        </div>
+                    </div>
+                </div>
+                }
+            }
+            else
+            {
+                <br />
+                <h2>"@searchValue" not found! :(</h2>
+            }
+        }
+        else
+        {
+            <br />
+            <a href="/movies/add" style="color:inherit;text-decoration:none">
+        <div class="add-movie-box" style="border: 2px dashed #fff ; background: #000">
+            <div class="add-icon">
+                <i class="fas fa-plus"></i>
+                <img src="/Footer/add_circle.png"/>
+                <br />
+                <p style="color : gray">Click to Add Movie</p>
+                    </div>
+        </div></a>
+
+        }
+
+
+        <h1 class="section-title" style="margin: 30px 0 30px">Recently Add</h1>
+        @foreach (var movie in Movies.OrderByDescending(m => m.CreatedAt).Take(3).ToList())
+        {
+            <div class="recently-added">
+            <div class="movie-item-add">
+             <a href="/Movies/Details/@movie.Id">
+                <img src="/Pictures/@movie.Picture" alt="@movie.Name">
+                    </a>
+                <div class="movie-info">
+                    <h3>@movie.Name</h3>
+                    <p>@movie.Imdb / 10</p>
+                </div>
+                </div>
+            </div>
+        }
+
+
+
+        <footer class="footer">
+            <a href="/">
+                <div class="fbutton">
+                    <img class="icon" src="/Footer/home.png" />
+                </div>
+            </a>
+            
+                <div class="fbutton active">
+                    <img class="icon" src="/Footer/bookmark.png" />
+                <span class="label">Save</span>
+            </div>
+            
+
+            <a href="/Movies/Search">
+                <div class="fbutton">
+                    <img class="icon" src="/Footer/search.png" />
+                </div>
+            </a>
+            <a href="/user">
+                <div class="fbutton">
+                    <img class="icon" src="/Footer/user.png" />
+                </div>
+            </a>
+        </footer>
+    </main>
+    <br />
+    <br />
+    <br />
+    <br />
+    <hr style="border: 0"/>
+    </div>
+@code {
+    private bool IsSearched = false;
+    private bool IsSearchedSuccess = true;
+    private string searchValue { get; set; } = string.Empty;
+    private List<Movie> SearchedMovie { get; set; } = new();
+    private List<Movie> Movies { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetAsync("http://localhost:8080/movies");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            Movies = System.Text.Json.JsonSerializer.Deserialize<List<Movie>>(jsonResponse,
+                new System.Text.Json.JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    })!;
+
+        }
+    }
+
+    private void OnSearch()
+    {
+        SearchedMovie.Clear();
+        if (Movies.Count > 0)
+        {
+            IsSearched = true;
+            foreach (var movie in Movies)
+            {
+                if (movie.Name.ToLower().Contains(searchValue.ToLower()))
+                {
+                    SearchedMovie.Add(movie);
+                }
+            }
+            if (SearchedMovie.Count == 0)
+            {
+                IsSearchedSuccess = false;
+            }
+            StateHasChanged();
+        }
+    }
+
+    private void CancelSearch()
+    {
+        searchValue = string.Empty;
+        IsSearched = false;
+        IsSearchedSuccess = true;
+        StateHasChanged();
+    }
+}

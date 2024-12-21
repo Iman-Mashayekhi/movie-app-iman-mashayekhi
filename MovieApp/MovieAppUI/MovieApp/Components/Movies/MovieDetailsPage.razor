@@ -1,0 +1,100 @@
+﻿@page "/Movies/Details/{Id:int}"
+@rendermode InteractiveServer
+@inject HttpClient Http
+@inject NavigationManager _navigationManager
+
+<main style="padding-bottom: 100px">
+@if (Movie is null)
+{
+    <em>Loading...</em>
+}
+else
+{
+    <div style="position:relative">
+
+    <div class="poster">
+        <div class="overlay"></div>
+        <img src="/Pictures/@Movie.Picture" alt="@Movie.Name Poster" class="poster-image" style="border-radius:0px 0px 30px 30px;">
+                <a href="/"><img src="/Footer/keyboard_arrow_left.png" class="dpage-h-btn dpage-h-btn-left" /></a>
+                <a href="/Movies/Edit/@Movie.Id"><img src="/Footer/more-vert.png" class="dpage-h-btn dpage-h-btn-right" /></a>
+        </div> 
+        <br />
+    <div class="details">
+        <div class="info">                
+                <span class="info-span" >IMDB Rate<br>
+                        <div style="display: flex;">
+                            <img src="/Pictures/imdb.png" class="imdb-logo" style="margin: 5px; margin-top: 6px;"/>
+                            <p class="info-strong">@Movie.Imdb/10</p>
+                        </div>
+
+                    </span>
+                <span class="info-span">Director<br><p class="info-strong">@Movie.Director</p></span>
+                <span class="info-span">Genre<br><p class="info-strong">@Movie.Genre</p></span>
+                <span class="info-span">Running Time<br><p class="info-strong">@Movie.watchTime</p></span>
+        </div>
+        <br />
+        <div class="tabs">
+                <button class="tab" style="width:250px; border: 1px solid #fff;">Stream</button>
+            </div>
+            <br />
+            <br />
+        <div>
+            <h4 style="margin-bottom: 20px">Description</h4>
+                    <p style="color: lightslategray;   text-align: justify;
+  text-justify: inter-word;">@Movie.Description</p>
+        </div>
+        </div>
+        </div>
+
+
+}
+
+    <footer class="footer">
+        <a href="/">
+            <div class="fbutton">
+                <img class="icon" src="/Footer/home.png" />
+            </div>
+        </a>
+        <a href="/Movies/bookmark">
+            <div class="fbutton">
+                <img class="icon" src="/Footer/bookmark.png" />
+            </div>
+        </a>
+
+        <a href="/Movies/Search">
+            <div class="fbutton">
+                <img class="icon" src="/Footer/search.png" />
+            </div>
+        </a>
+        <a href="/user">
+            <div class="fbutton">
+                <img class="icon" src="/Footer/user.png" />
+            </div>
+        </a>
+
+    </footer>
+</main>
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private Movie Movie { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await Http.GetAsync($"http://localhost:8080/movies/{Id}");
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var movies = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Movie>>(jsonResponse);
+
+            if (movies != null && movies.Any())
+            {
+                Movie = movies.First(); 
+            }
+        }
+    }
+
+}
+

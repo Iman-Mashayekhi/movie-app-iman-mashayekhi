@@ -1,0 +1,193 @@
+﻿@page "/Movies/Edit/{Id:int}"
+@rendermode InteractiveServer
+
+@inject HttpClient Http
+@inject NavigationManager _navigationManager
+@inject IWebHostEnvironment environment
+
+
+<PageTitle>Edit @Movie.Name</PageTitle>
+
+
+
+    <div class="Add-Container-page">
+
+
+        <EditForm class="add-containre-form" Enhance="true" Model="MovieForUpdate" FormName="UpdateMovie" >
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary></ValidationSummary>
+
+            <div class="mb-4">
+                <InputText class="form-control Add-Container-input" @bind-Value="MovieForUpdate.Name" placeholder="Name" />
+            </div>
+            <div class="mb-4">
+                <InputText class="form-control Add-Container-input" @bind-Value="MovieForUpdate.Director" placeholder="Director" />
+            </div>
+            <div class="mb-4" style="display:flex; align-content:center">
+                <InputText class="form-control" @bind-Value="MovieForUpdate.Imdb" style="width: 45%; display:flex; margin-right:30px" placeholder="Imdb" />
+
+                <InputText class="form-control Add-Container-input" @bind-Value="MovieForUpdate.watchTime" style="width:45%; display:flex margin-left:30px;" placeholder="Watch time" />
+            </div>
+            <div class="mb-4">
+                <InputSelect class="form-select" @bind-Value="MovieForUpdate.Genre" style="background: #1f1f1f;  color: #fff; border: 1px solid #444; border-radius:15px;">
+                    <option value="0">Genre ></option>
+                    @foreach (var item in Enum.GetValues(typeof(Genres)))
+                {
+                    <option value="@item">@item.ToString()</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="mb-4" style="display:flex; align-items: center;">
+            <img src="/Pictures/@Movie.Picture" style="width: 100px; height: auto; left: 10px; margin: 5px; padding: 5px"/>
+            <InputFile type="file" class="form-control" style="height: 36px;" OnChange="HandleFileSelected" placeholder="Picture" />
+
+        </div>
+
+        <div class="mb-4">
+        </div>
+        <div class="mb-4">
+            <InputTextArea class="form-control" @bind-Value="MovieForUpdate.Description" placeholder="Description" />
+        </div>
+
+
+        <div class="toggle-buttons">
+            <button class="toggle active" @onclick="UpdateMovie">Update</button>
+            <button class="toggle" @onclick="DeleteMovie">Delete</button>
+            <a class="toggle" href="/" style="color:inherit;text-decoration:none">Cancel</a>
+        </div>
+
+    </EditForm>
+
+
+
+</div>
+
+
+<footer class="footer">
+    <a href="/">
+        <div class="fbutton">
+            <img class="icon" src="/Footer/home.png" />
+        </div>
+    </a>
+    <a href="/Movies/bookmark">
+        <div class="fbutton">
+            <img class="icon" src="/Footer/bookmark.png" />
+        </div>
+    </a>
+
+    <a href="/Movies/Search">
+        <div class="fbutton">
+            <img class="icon" src="/Footer/search.png" />
+        </div>
+    </a>
+    <a href="/user">
+        <div class="fbutton">
+            <img class="icon" src="/Footer/user.png" />
+        </div>
+    </a>
+
+</footer>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private MovieDto MovieForUpdate { get; set; } = new();
+
+    [Inject] private IDialogService DialogService { get; set; }
+
+
+    [Inject] private MudMessageBox _mudMessageBox { get; set; }
+    private Movie Movie { get; set; } = new();
+
+    private string FilePath = string.Empty;
+    private string FinalimgNAme = string.Empty;
+    private IBrowserFile SelectedFile { get; set; }
+    private bool check = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (check)
+            if (MovieForUpdate == null || string.IsNullOrEmpty(MovieForUpdate.Name))
+            {
+                var response = await Http.GetAsync($"http://localhost:8080/movies/{Id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var movies = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Movie>>(jsonResponse);
+
+                    if (movies != null && movies.Any())
+                    {
+                        Movie = movies.First();
+
+                        MovieForUpdate = new MovieDto
+                        {
+                            Id = Movie.Id,
+                            Name = Movie.Name,
+                            Director = Movie.Director,
+                            Genre = Movie.Genre,
+                            Imdb = Movie.Imdb,
+                            watchTime = Movie.watchTime,
+                            Description = Movie.Description
+                        };
+                    }
+                }
+                check = false;
+            }
+    }
+
+
+    private async Task UpdateMovie()
+    {
+        Movie newMovie = new Movie()
+            {
+                Name = MovieForUpdate.Name,
+                Description = MovieForUpdate.Description,
+                Genre = MovieForUpdate.Genre,
+                Picture = FinalimgNAme,
+                Director = MovieForUpdate.Director,
+                Imdb = MovieForUpdate.Imdb,
+                watchTime = MovieForUpdate.watchTime
+            };
+
+
+        var jsonContent = System.Text.Json.JsonSerializer.Serialize(newMovie);
+
+        var movie = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+        var response = await Http.PutAsync($"http://localhost:8080/update/{Id}", movie);
+
+        if (response.IsSuccessStatusCode)
+        {
+            _navigationManager.NavigateTo("/");
+        }
+    }
+
+
+    private async Task DeleteMovie()
+    {
+            var response = await Http.DeleteAsync($"http://localhost:8080/delete/{Id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                _navigationManager.NavigateTo("/");
+            }
+    }
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        SelectedFile = e.File;
+
+        string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(SelectedFile.Name);
+        FilePath = Path.Combine(environment.WebRootPath, "Pictures", newFileName);
+
+        FinalimgNAme = newFileName;
+        using (var stream = System.IO.File.Create(FilePath))
+        {
+            await SelectedFile.OpenReadStream().CopyToAsync(stream);
+        }
+    }
+}
